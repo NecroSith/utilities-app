@@ -3,29 +3,44 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+  public displayedColumns: string[] = ['date', 'gas', 'electricity', 'hot water', 'cold water'];
+  public testArray = [
+    {id: 1, date: '01.10.2020', gas: 18.86, electricity: 70.63, hotWater: 43.70, coldWater: 66.70},
+    {id: 2, date: '01.11.2020', gas: 19.34, electricity: 71.71, hotWater: 45.67, coldWater: 69.88},
+    {id: 3, date: '01.12.2020', gas: 19.87, electricity: 73.35, hotWater: 47.23, coldWater: 72.74},
+    {id: 4, date: '01.01.2021', gas: 20.70, electricity: 74.93, hotWater: 51.90, coldWater: 79.07},
+    {id: 5, date: '02.12.2020', gas: 21.23, electricity: 76.60, hotWater: 57.40, coldWater: 85.85},
+  ];
+  public roundValues = false;
+
+  private defaultTestArray;
 
   constructor() {
 
   }
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
 
-  testArray = [
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-    {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-    {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-    {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-    {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  ];
   ngOnInit() {
+    this.defaultTestArray = this.testArray;
+    console.log(this.defaultTestArray);
+  }
+
+  public changeValues() {
+    if (this.roundValues) {
+      this.testArray = this.testArray.map(item => ({
+        ...item,
+        gas: Math.round(item.gas),
+        electricity: Math.round(item.electricity),
+        hotWater: Math.round(item.hotWater),
+        coldWater: Math.round(item.coldWater),
+      }))
+    } else {
+      this.testArray = this.defaultTestArray;
+    }
+    this.roundValues = !this.roundValues;
   }
 
 }
