@@ -1,0 +1,16 @@
+table {
+  width: 98%;
+  margin: 0 auto 15px auto;
+}
+
+td[mat-footer-cell] {
+  font-weight: bold;
+}
+
+.diff {
+  color: red;
+  &:before {
+    content: '+';
+    display: inline-block;
+  }
+}

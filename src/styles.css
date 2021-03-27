@@ -3,3 +3,7 @@
 html, body { height: 100%;
   padding-top: 20px;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-tab-header {
+  margin-bottom: 25px;
+}

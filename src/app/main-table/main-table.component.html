@@ -1,0 +1,65 @@
+<div style="display:flex; justify-content: space-between; margin-bottom: 15px;">
+  <span></span>
+  <mat-slide-toggle [checked]="roundValues" (click)="changeValues()">Округлить значения</mat-slide-toggle>
+</div>
+
+<table mat-table [dataSource]="testArray" class="mat-elevation-z8" >
+
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    <td mat-footer-cell *matFooterCellDef> Среднее </td>
+  </ng-container>
+
+  <ng-container matColumnDef="electricity">
+    <th mat-header-cell *matHeaderCellDef> Electricity </th>
+    <td mat-cell *matCellDef="let element"> {{element.electricity}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getAverage('electricity')}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="elDiff">
+    <th mat-header-cell *matHeaderCellDef> Electricity Δ </th>
+    <td mat-cell class="diff"  *matCellDef="let element"> {{element.elDiff}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getAverage('elDiff')}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="gas">
+    <th mat-header-cell *matHeaderCellDef> Gas </th>
+    <td mat-cell *matCellDef="let element"> {{element.gas}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getAverage('gas')}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="gasDiff">
+    <th mat-header-cell *matHeaderCellDef> Gas Δ </th>
+    <td mat-cell class="diff"  *matCellDef="let element"> {{element.gasDiff}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getAverage('gasDiff')}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="hot water">
+    <th mat-header-cell *matHeaderCellDef> Hot Water </th>
+    <td mat-cell *matCellDef="let element"> {{element.hotWater}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getAverage('hotWater')}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="hotDiff">
+    <th mat-header-cell *matHeaderCellDef> Hot Water Δ </th>
+    <td mat-cell class="diff"  *matCellDef="let element"> {{element.hotDiff}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getAverage('hotDiff')}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="cold water">
+    <th mat-header-cell *matHeaderCellDef> Cold Water </th>
+    <td mat-cell *matCellDef="let element"> {{element.coldWater}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getAverage('coldWater')}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="coldDiff">
+    <th mat-header-cell *matHeaderCellDef> Cold Water Δ </th>
+    <td mat-cell class="diff"  *matCellDef="let element"> {{element.coldDiff}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getAverage('coldDiff')}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+</table>

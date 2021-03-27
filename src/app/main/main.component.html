@@ -1,44 +1,13 @@
 <div class="main-wrapper">
   <div class="main-wrapper__header-wrapper">
     <h2>Utilities expense manager</h2>
-    <mat-slide-toggle [checked]="roundValues" (click)="changeValues()">Round values</mat-slide-toggle>
   </div>
 
-  <table mat-table [dataSource]="testArray" class="mat-elevation-z8" >
-
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-      <td mat-footer-cell *matFooterCellDef> Среднее </td>
-    </ng-container>
-
-    <ng-container matColumnDef="electricity">
-      <th mat-header-cell *matHeaderCellDef> Electricity </th>
-      <td mat-cell *matCellDef="let element"> {{element.electricity}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{getAverage('electricity')}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="gas">
-      <th mat-header-cell *matHeaderCellDef> Gas </th>
-      <td mat-cell *matCellDef="let element"> {{element.gas}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{getAverage('gas')}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="hot water">
-      <th mat-header-cell *matHeaderCellDef> Hot Water </th>
-      <td mat-cell *matCellDef="let element"> {{element.hotWater}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{getAverage('hotWater')}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="cold water">
-      <th mat-header-cell *matHeaderCellDef> Cold Water </th>
-      <td mat-cell *matCellDef="let element"> {{element.coldWater}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{getAverage('coldWater')}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-  </table>
+  <mat-tab-group class="main__tabs">
+    <mat-tab label="Таблица" class="tabs__tab">
+      <app-main-table></app-main-table>
+    </mat-tab>
+    <mat-tab label="График" class="tabs__tab"> Content 2 </mat-tab>
+  </mat-tab-group>
 </div>
 
