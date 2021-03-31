@@ -67,12 +67,18 @@ export class MainTableComponent implements OnInit {
         electricity: Math.round(item.electricity as number),
         hotWater: Math.round(item.hotWater as number),
         coldWater: Math.round(item.coldWater as number),
-        gasDiff: Math.round(item.gasDiff as number),
-        elDiff: Math.round(item.elDiff as number),
-        hotDiff: Math.round(item.hotDiff as number),
-        coldDiff: Math.round(item.coldDiff as number),
-        totalCost: Math.round(item.gasDiff as number) * 115.08 + Math.round(item.elDiff as number) * 100 * 5.10 + Math.round(item.hotDiff as number) * 182.20 + Math.round(item.coldDiff as number) * 74
       }));
+
+      for (let i = 1; i < this.testArray.length; i++) {
+        this.testArray[i].gasDiff = +(this.testArray[i].gas - this.testArray[i - 1].gas);
+        this.testArray[i].elDiff = +(this.testArray[i].electricity - this.testArray[i - 1].electricity);
+        this.testArray[i].hotDiff = +(this.testArray[i].hotWater - this.testArray[i - 1].hotWater);
+        this.testArray[i].coldDiff = +(this.testArray[i].coldWater - this.testArray[i - 1].coldWater);
+      }
+
+      for (let i = 1; i < this.testArray.length; i++) {
+        this.testArray[i].totalCost = +this.testArray[i].gasDiff * 115.08 + +this.testArray[i].elDiff * 100 * 5.10 + +this.testArray[i].hotDiff * 182.20 + +this.testArray[i].coldDiff * 74;
+      }
     } else {
       this.testArray = this.defaultTestArray;
     }
@@ -80,16 +86,11 @@ export class MainTableComponent implements OnInit {
   }
 
   public getAverage(field) {
-    // const key = Object.keys(this.testArray)[field];
-    // console.log('key', key, row);
+
     const values = this.testArray.map(item => item[field]);
-    // console.log('val', values);
+
     const total = values.reduce((acc, value) => acc + value, 0);
     return (total / values.length).toFixed(2);
-  }
-
-  private getMonthlyDifference(curValue, prevValue): string {
-    return prevValue ? `+${curValue - prevValue}` : '-';
   }
 
   private getMonth(date: Date | string): string {
