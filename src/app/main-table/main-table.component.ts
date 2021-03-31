@@ -12,6 +12,7 @@ interface IDataSource {
   hotDiff?: number | string;
   coldWater: number;
   coldDiff?: number | string;
+  totalCost?: number | string;
 }
 
 @Component({
@@ -20,7 +21,7 @@ interface IDataSource {
   styleUrls: ['./main-table.component.scss']
 })
 export class MainTableComponent implements OnInit {
-  public displayedColumns: string[] = ['date', 'gas', 'gasDiff', 'electricity', 'elDiff', 'hot water', 'hotDiff', 'cold water', 'coldDiff'];
+  public displayedColumns: string[] = ['date', 'gas', 'gasDiff', 'electricity', 'elDiff', 'hot water', 'hotDiff', 'cold water', 'coldDiff', 'totalCost'];
   public testArray: IDataSource[] = [
     {id: 1, date: '10.01.2020', gas: 18.86, gasDiff: 0, electricity: 70.63, elDiff: 0, hotWater: 43.70, hotDiff: 0, coldWater: 66.70, coldDiff: 0},
     {id: 2, date: '11.01.2020', gas: 19.34, electricity: 71.71, hotWater: 45.67, coldWater: 69.88},
@@ -51,6 +52,10 @@ export class MainTableComponent implements OnInit {
       this.testArray[i].coldDiff = +(this.testArray[i].coldWater - this.testArray[i - 1].coldWater).toFixed(2);
     }
 
+    for (let i = 1; i < this.testArray.length; i++) {
+      this.testArray[i].totalCost = +this.testArray[i].gasDiff * 115.08 + +this.testArray[i].elDiff * 100 * 5.10 + +this.testArray[i].hotDiff * 182.20 + +this.testArray[i].coldDiff * 74;
+    }
+
     this.defaultTestArray = this.testArray;
   }
 
@@ -66,6 +71,7 @@ export class MainTableComponent implements OnInit {
         elDiff: Math.round(item.elDiff as number),
         hotDiff: Math.round(item.hotDiff as number),
         coldDiff: Math.round(item.coldDiff as number),
+        totalCost: Math.round(item.gasDiff as number) * 115.08 + Math.round(item.elDiff as number) * 100 * 5.10 + Math.round(item.hotDiff as number) * 182.20 + Math.round(item.coldDiff as number) * 74
       }));
     } else {
       this.testArray = this.defaultTestArray;
