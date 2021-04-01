@@ -1,12 +1,7 @@
-<div style="display:flex; justify-content: space-between; margin-bottom: 15px;">
-  <div style="display: flex">
-    <span>Цена за единицу:</span>
-    <span>Газ, 1 куб.м: <b>115,08 ₽</b> </span>
-    <span>Электричество, 1 кВт: <b>5.10 ₽</b> </span>
-    <span>Горячая вода, 1 куб. м: <b>182.20 ₽</b> </span>
-    <span>Холодная вода + стоки, 1 куб. м: <b>74 ₽</b> </span>
+<div style="display:flex; justify-content: space-between; margin-bottom: 15px; padding: 10px 10px 0 10px;">
+  <div>
   </div>
-  <mat-slide-toggle [checked]="roundValues" (click)="changeValues()">Округлить значения</mat-slide-toggle>
+  <mat-slide-toggle [checked]="roundValues" (change)="changeValues()">Округлить значения</mat-slide-toggle>
 </div>
 
 <table mat-table [dataSource]="testArray" class="mat-elevation-z8" >
@@ -67,7 +62,7 @@
 
   <ng-container matColumnDef="totalCost">
     <th mat-header-cell *matHeaderCellDef> Cost </th>
-    <td mat-cell *matCellDef="let element"> {{element.totalCost?.toFixed(2) || 0}} ₽</td>
+    <td mat-cell *matCellDef="let element"> {{element.totalCost }} ₽</td>
     <td mat-footer-cell *matFooterCellDef> {{getAverage('totalCost')}} </td>
   </ng-container>
 
