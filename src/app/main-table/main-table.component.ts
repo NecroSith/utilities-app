@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as moment from "moment";
+import {IValues} from "../main/main.component";
 
 interface IDataSource {
   id: number;
@@ -21,6 +22,8 @@ interface IDataSource {
   styleUrls: ['./main-table.component.scss']
 })
 export class MainTableComponent implements OnInit {
+  @Input() valuesForOne: IValues[];
+
   public displayedColumns: string[] = ['date', 'gas', 'gasDiff', 'electricity', 'elDiff', 'hot water', 'hotDiff', 'cold water', 'coldDiff', 'totalCost'];
   public testArray: IDataSource[] = [
     {id: 1, date: '10.01.2020', gas: 18.86, gasDiff: 0, electricity: 70.63, elDiff: 0, hotWater: 43.70, hotDiff: 0, coldWater: 66.70, coldDiff: 0, totalCost: 0},
@@ -78,8 +81,10 @@ export class MainTableComponent implements OnInit {
       }
 
       for (let i = 1; i < this.testArray.length; i++) {
-        this.testArray[i].totalCost = Math.round(this.testArray[i].gasDiff as number * 115.08 + +this.testArray[i].elDiff * 100 * 5.10 + +this.testArray[i].hotDiff * 182.20 + +this.testArray[i].coldDiff * 74);
+        this.testArray[i].totalCost = parseFloat((this.testArray[i].gasDiff as number * 115.08 + +this.testArray[i].elDiff * 100 * 5.10 + +this.testArray[i].hotDiff * 182.20 + +this.testArray[i].coldDiff * 74).toFixed(2));
       }
+
+      console.log(this.testArray)
 
       for (const item of this.testArray) {
         this.getAverage(item);
@@ -118,6 +123,14 @@ export class MainTableComponent implements OnInit {
       default: break;
     }
     return `${result} ${moment(date).year()}`;
+  }
+
+  private calculateTotalCost(item: IDataSource) {
+    const gasPrice = +item.gasDiff * this.valuesForOne.find(value => value.type === 'gas').value;
+    const elPrice = +item.elDiff * 100 * this.valuesForOne.find(value => value.type === 'el').value;
+    const hotPrice = +item.hotDiff * this.valuesForOne.find(value => value.type === 'hot').value;
+    const coldPrice = +item.coldDiff * this.valuesForOne.find(value => value.type === 'cold').value;
+    return parseFloat((gasPrice + elPrice + hotPrice + coldPrice).toFixed(2));
   }
 
 }
