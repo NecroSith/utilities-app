@@ -48,21 +48,11 @@ export class MainTableComponent implements OnInit {
       date: this.getMonth(item.date),
     }));
 
-    for (let i = 1; i < this.testArray.length; i++) {
-      this.testArray[i].gasDiff = +(this.testArray[i].gas - this.testArray[i - 1].gas).toFixed(2);
-      this.testArray[i].elDiff = +(this.testArray[i].electricity - this.testArray[i - 1].electricity).toFixed(2);
-      this.testArray[i].hotDiff = +(this.testArray[i].hotWater - this.testArray[i - 1].hotWater).toFixed(2);
-      this.testArray[i].coldDiff = +(this.testArray[i].coldWater - this.testArray[i - 1].coldWater).toFixed(2);
-    }
-
-    for (let i = 1; i < this.testArray.length; i++) {
-      this.testArray[i].totalCost = parseFloat((+this.testArray[i].gasDiff * 115.08 + +this.testArray[i].elDiff * 100 * 5.10 + +this.testArray[i].hotDiff * 182.20 + +this.testArray[i].coldDiff * 74).toFixed(2));
-    }
-
+    this.calculateDiffsAndTotalCost(this.testArray, true);
     this.defaultTestArray = this.testArray;
   }
 
-  public changeValues() {
+  public changeValues(): void {
     this.roundValues = !this.roundValues;
     if (this.roundValues) {
       this.testArray = this.testArray.map(item => ({
@@ -73,18 +63,7 @@ export class MainTableComponent implements OnInit {
         coldWater: Math.round(item.coldWater as number),
       }));
 
-      for (let i = 1; i < this.testArray.length; i++) {
-        this.testArray[i].gasDiff = +(this.testArray[i].gas - this.testArray[i - 1].gas);
-        this.testArray[i].elDiff = +(this.testArray[i].electricity - this.testArray[i - 1].electricity);
-        this.testArray[i].hotDiff = +(this.testArray[i].hotWater - this.testArray[i - 1].hotWater);
-        this.testArray[i].coldDiff = +(this.testArray[i].coldWater - this.testArray[i - 1].coldWater);
-      }
-
-      for (let i = 1; i < this.testArray.length; i++) {
-        this.testArray[i].totalCost = parseFloat((this.testArray[i].gasDiff as number * 115.08 + +this.testArray[i].elDiff * 100 * 5.10 + +this.testArray[i].hotDiff * 182.20 + +this.testArray[i].coldDiff * 74).toFixed(2));
-      }
-
-      console.log(this.testArray)
+      this.calculateDiffsAndTotalCost(this.testArray);
 
       for (const item of this.testArray) {
         this.getAverage(item);
@@ -95,7 +74,7 @@ export class MainTableComponent implements OnInit {
 
   }
 
-  public getAverage(field) {
+  public getAverage(field): number | string {
     const values = this.testArray.map(item => item[field]);
     const total = values.reduce((acc, value) => acc + value, 0);
 
@@ -125,12 +104,30 @@ export class MainTableComponent implements OnInit {
     return `${result} ${moment(date).year()}`;
   }
 
-  private calculateTotalCost(item: IDataSource) {
+  private calculateTotalCost(item: IDataSource): number {
     const gasPrice = +item.gasDiff * this.valuesForOne.find(value => value.type === 'gas').value;
     const elPrice = +item.elDiff * 100 * this.valuesForOne.find(value => value.type === 'el').value;
     const hotPrice = +item.hotDiff * this.valuesForOne.find(value => value.type === 'hot').value;
     const coldPrice = +item.coldDiff * this.valuesForOne.find(value => value.type === 'cold').value;
     return parseFloat((gasPrice + elPrice + hotPrice + coldPrice).toFixed(2));
+  }
+
+  private calculateDiffsAndTotalCost(items: IDataSource[], round: boolean = false) {
+    for (let i = 1; i < items.length; i++) {
+      items[i].gasDiff =  this.getDiff(items[i].gas, items[i-1].gas, round);
+      items[i].elDiff = this.getDiff(items[i].electricity, items[i-1].electricity, round);
+      items[i].hotDiff = this.getDiff(items[i].hotWater, items[i-1].hotWater, round);
+      items[i].coldDiff = this.getDiff(items[i].coldWater, items[i-1].coldWater, round);
+    }
+
+    for (let i = 1; i < items.length; i++) {
+      items[i].totalCost = this.calculateTotalCost(items[i]);
+    }
+  }
+
+  private getDiff(value1, value2, round: boolean = false) {
+    const result = +(value1 - value2);
+    return round ? result.toFixed(2) : result;
   }
 
 }
