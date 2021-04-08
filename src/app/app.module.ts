@@ -6,9 +6,9 @@ import { MainComponent } from './main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from "@angular/material/table";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {MatTabsModule} from "@angular/material/tabs";
 import { MainTableComponent } from './main-table/main-table.component';
 import {FormsModule} from "@angular/forms";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [
@@ -21,8 +21,8 @@ import {FormsModule} from "@angular/forms";
     BrowserAnimationsModule,
     MatTableModule,
     MatSlideToggleModule,
-    MatTabsModule,
     FormsModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,8 +2,11 @@
 
 
 .main-wrapper {
-  width: 70%;
-  margin: 0 auto;
+  height: 100vh;
+  &__sidebar {
+    width: 350px;
+  }
+
   &__header-wrapper {
     display: flex;
     align-items: center;

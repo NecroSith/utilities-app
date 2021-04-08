@@ -14,3 +14,28 @@ td[mat-footer-cell] {
     display: inline-block;
   }
 }
+
+.totalCost {
+  position: relative;
+  & > span {
+    cursor: pointer;
+    color: blue;
+  }
+
+  & > span:hover + .details-tooltip {
+    display: block;
+  }
+
+  & > .details-tooltip {
+    z-index: 3;
+    padding: 10px;
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: solid 1px rgba(0,0,0,.12);
+    border-radius: 10px;
+    & > div:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}
