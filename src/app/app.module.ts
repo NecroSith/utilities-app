@@ -9,12 +9,17 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { MainTableComponent } from './main-table/main-table.component';
 import {FormsModule} from "@angular/forms";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
+import { FontAwesomeModule, FaIconLibrary } from "@fortawesome/angular-fontawesome";
+
+import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    MainTableComponent
+    MainTableComponent,
+    MainSidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -22,9 +27,14 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     MatTableModule,
     MatSlideToggleModule,
     FormsModule,
+    FontAwesomeModule,
     MatSidenavModule,
   ],
-  providers: [],
+  providers: [FaIconLibrary],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private library: FaIconLibrary) {
+    library.addIcons(faSquare, faCheckSquare);
+  }
+}

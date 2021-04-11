@@ -1,21 +1,17 @@
 <mat-drawer-container class="main-wrapper" autosize>
   <mat-drawer #drawer opened mode="side" class="main-wrapper__sidebar">
-    <div class="sidebar__header">Utilities manager</div>
-    <nav class="sidebar__nav">
-      <ul>
-        <li>Таблица</li>
-        <li>График</li>
-      </ul>
-    </nav>
+    <app-main-sidebar></app-main-sidebar>
   </mat-drawer>
 
   <div class="main-wrapper__header-wrapper">
+    <h3>Добро пожаловать!</h3>
     <div style="display: flex; column-gap: 20px;">
       <span>Цена за единицу:</span>
       <span *ngFor="let item of valuesForOne">
         {{ item.name }}:<b> {{ item.value }} ₽</b>
       </span>
     </div>
+    <button>Изменить</button>
   </div>
 
   <app-main-table [valuesForOne]="valuesForOne"></app-main-table>
