@@ -83,7 +83,7 @@ export class MainTableComponent implements OnInit {
   public changeValues() {
     this.roundValues = !this.roundValues;
     if (this.roundValues) {
-      this.initialData = this.initialData.map(item => ({
+      const newData = this.initialData.map(item => ({
         ...item,
         gas: Math.round(item.gas as number),
         electricity: Math.round(item.electricity as number),
@@ -91,26 +91,15 @@ export class MainTableComponent implements OnInit {
         coldWater: Math.round(item.coldWater as number),
       }));
 
-      this.getDiffData(this.initialData);
-    //
-    //   for (let i = 1; i < this.testArray.length; i++) {
-    //     this.testArray[i].gasDiff = +(this.testArray[i].gas - this.testArray[i - 1].gas);
-    //     this.testArray[i].elDiff = +(this.testArray[i].electricity - this.testArray[i - 1].electricity);
-    //     this.testArray[i].hotDiff = +(this.testArray[i].hotWater - this.testArray[i - 1].hotWater);
-    //     this.testArray[i].coldDiff = +(this.testArray[i].coldWater - this.testArray[i - 1].coldWater);
-    //   }
-    //
-    //   for (let i = 1; i < this.testArray.length; i++) {
-    //     this.testArray[i].totalCost = (this.testArray[i].gasDiff as number * 115.08 + +this.testArray[i].elDiff * 100 * 5.10 + +this.testArray[i].hotDiff * 182.20 + +this.testArray[i].coldDiff * 74).toFixed(2);
-    //   }
-    //
-    //   console.log()
-    //
-    //   for (const item of this.testArray) {
-    //     this.getAverage(item);
-    //   }
+      this.getDiffData(newData);
+
+      // @ts-ignore
+      this.reinitDataSource(newData);
+
     } else {
       this.initialData = this.defaultTestArray;
+      
+      this.reinitDataSource(this.initialData);
     }
 
   }
@@ -122,6 +111,11 @@ export class MainTableComponent implements OnInit {
     const result = (total / values.length);
 
     return this.roundValues ? Math.round(result) : result.toFixed(2);
+  }
+
+  private reinitDataSource(newDataSource: IDataSource[]) {
+    this.testArray = new MatTableDataSource<IDataSource>(newDataSource);
+    this.testArray.paginator = this.paginator;
   }
 
   private getDiffData(data) {
