@@ -10,6 +10,7 @@ import { MainTableComponent } from './main-table/main-table.component';
 import {FormsModule} from "@angular/forms";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
+import { MatPaginatorModule } from "@angular/material/paginator";
 import { FontAwesomeModule, FaIconLibrary } from "@fortawesome/angular-fontawesome";
 
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
@@ -26,6 +27,7 @@ import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
     BrowserAnimationsModule,
     MatTableModule,
     MatSlideToggleModule,
+    MatPaginatorModule,
     FormsModule,
     FontAwesomeModule,
     MatSidenavModule,

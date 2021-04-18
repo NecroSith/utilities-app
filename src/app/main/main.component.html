@@ -5,15 +5,21 @@
 
   <div class="main-wrapper__header-wrapper">
     <h3>Добро пожаловать!</h3>
-    <div style="display: flex; column-gap: 20px;">
-      <span>Цена за единицу:</span>
-      <span *ngFor="let item of valuesForOne">
+    <div style="display:flex; justify-content:space-between; align-items: center">
+      <div style="display: flex; column-gap: 20px;">
+        <span>Цена за единицу:</span>
+        <span *ngFor="let item of valuesForOne">
         {{ item.name }}:<b> {{ item.value }} ₽</b>
       </span>
+      </div>
+      <button class="header-wrapper__btn-edit">Изменить</button>
     </div>
-    <button>Изменить</button>
   </div>
 
-  <app-main-table [valuesForOne]="valuesForOne"></app-main-table>
+  <div class="main-wrapper__content-wrapper">
+    <div>Показания ЖКХ по месяцам</div>
+    <app-main-table [valuesForOne]="valuesForOne"></app-main-table>
+  </div>
+
 </mat-drawer-container>
 
