@@ -24,7 +24,7 @@ interface IDataSource {
   styleUrls: ['./main-table.component.scss']
 })
 export class MainTableComponent implements OnInit {
-  @Input() valuesForOne: IValues;
+  @Input() valuesForOne: IValues[];
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   private initialData = [
@@ -68,12 +68,14 @@ export class MainTableComponent implements OnInit {
 
 
   ngOnInit() {
-    this.testArray.filteredData = this.testArray.filteredData.map(item => ({
+    this.initialData = this.initialData.map(item => ({
       ...item,
       date: this.getMonth(item.date),
+      prices: {}
     }));
 
     this.getDiffData(this.initialData);
+    this.reinitDataSource(this.initialData);
 
     console.log(this.testArray)
 
@@ -118,6 +120,20 @@ export class MainTableComponent implements OnInit {
     this.testArray.paginator = this.paginator;
   }
 
+  private getPrices(data) {
+    const gasPrice = this.valuesForOne.find(item => item.type === 'gas').value;
+    const elPrice = this.valuesForOne.find(item => item.type === 'el').value;
+    const hotPrice = this.valuesForOne.find(item => item.type === 'hot').value;
+    const coldPrice = this.valuesForOne.find(item => item.type === 'cold').value;
+
+    for (let i = 1; i < data.length; i++) {
+      data[i].prices.gasDiff = +(data[i].gasDiff * gasPrice).toFixed(2);
+      data[i].prices.elDiff = +(data[i].elDiff * 100 * elPrice).toFixed(2);
+      data[i].prices.hotDiff = +(data[i].hotDiff * hotPrice).toFixed(2);
+      data[i].prices.coldDiff = +(data[i].coldDiff * coldPrice).toFixed(2);
+    }
+  }
+
   private getDiffData(data) {
     for (let i = 1; i < data.length; i++) {
       data[i].gasDiff = +(data[i].gas - data[i - 1].gas).toFixed(2);
@@ -125,6 +141,8 @@ export class MainTableComponent implements OnInit {
       data[i].hotDiff = +(data[i].hotWater - data[i - 1].hotWater).toFixed(2);
       data[i].coldDiff = +(data[i].coldWater - data[i - 1].coldWater).toFixed(2);
     }
+
+    this.getPrices(data);
 
     for (let i = 1; i < data.length; i++) {
       data[i].totalCost = parseFloat((+data[i].gasDiff * 115.08 + +data[i].elDiff * 100 * 5.10 + +data[i].hotDiff * 182.20 + +data[i].coldDiff * 74).toFixed(2));
