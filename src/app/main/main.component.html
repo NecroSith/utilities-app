@@ -4,16 +4,35 @@
   </mat-drawer>
 
   <div class="main-wrapper__header-wrapper">
-    <h3>Добро пожаловать!</h3>
     <div style="display:flex; justify-content:space-between; align-items: center">
-      <div style="display: flex; column-gap: 20px;">
-        <span>Цена за единицу:</span>
-        <span *ngFor="let item of valuesForOne">
+      <div>
+        <h3>Добро пожаловать!</h3>
+        <div style="display: flex; column-gap: 20px;">
+          <span>Цена за единицу:</span>
+          <span *ngFor="let item of valuesForOne">
         {{ item.name }}:<b> {{ item.value }} ₽</b>
       </span>
+        </div>
       </div>
-      <button class="header-wrapper__btn-edit">Изменить</button>
+      <div>
+        <button class="header-wrapper__btn-edit" [matMenuTriggerFor]="menu">
+          <fa-icon [icon]="faDown"></fa-icon>
+          Действия
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <fa-icon [icon]="faDown"></fa-icon>
+            Добавить параметр
+          </button>
+          <button mat-menu-item>
+            <fa-icon [icon]="faDown"></fa-icon>
+            Изменить параметры
+          </button>
+        </mat-menu>
+      </div>
+
     </div>
+
   </div>
 
   <div class="main-wrapper__content-wrapper">

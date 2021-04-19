@@ -11,6 +11,7 @@ import {FormsModule} from "@angular/forms";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatMenuModule } from '@angular/material/menu'
 import { FontAwesomeModule, FaIconLibrary } from "@fortawesome/angular-fontawesome";
 
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
@@ -30,6 +31,7 @@ import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
     MatPaginatorModule,
     FormsModule,
     FontAwesomeModule,
+    MatMenuModule,
     MatSidenavModule,
   ],
   providers: [FaIconLibrary],

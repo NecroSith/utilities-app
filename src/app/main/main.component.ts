@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 export interface IValues {
   name: string;
@@ -13,6 +14,7 @@ export interface IValues {
 })
 
 export class MainComponent implements OnInit {
+  public faDown = faChevronDown;
   public valuesForOne: IValues[] = [
     {
       name: 'Газ',
