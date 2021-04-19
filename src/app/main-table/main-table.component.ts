@@ -98,7 +98,7 @@ export class MainTableComponent implements OnInit {
 
     } else {
       this.initialData = this.defaultTestArray;
-      
+
       this.reinitDataSource(this.initialData);
     }
 
