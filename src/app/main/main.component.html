@@ -16,6 +16,7 @@
       </div>
       <div>
         <button class="header-wrapper__btn-edit" [matMenuTriggerFor]="menu">
+          <fa-icon [icon]="faDown"></fa-icon>
           Действия
         </button>
         <mat-menu #menu="matMenu">
@@ -23,7 +24,6 @@
             Добавить параметр
           </button>
           <button mat-menu-item>
-            <fa-icon [icon]="faDown"></fa-icon>
             Изменить параметры
           </button>
         </mat-menu>

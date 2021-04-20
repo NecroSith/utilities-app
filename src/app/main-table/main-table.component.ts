@@ -3,6 +3,8 @@ import * as moment from "moment";
 import {IValues} from "../main/main.component";
 import { MatPaginator } from "@angular/material/paginator";
 import {MatTableDataSource} from '@angular/material/table';
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
+
 
 interface IDataSource {
   id: number;
@@ -55,6 +57,7 @@ export class MainTableComponent implements OnInit {
   public displayedColumns: string[] = ['date', 'gas', 'gasDiff', 'electricity', 'elDiff', 'hot water', 'hotDiff', 'cold water', 'coldDiff', 'totalCost'];
   public testArray = new MatTableDataSource<IDataSource>(this.initialData);
   public roundValues = false;
+  public faPlus = faPlus;
 
   private defaultTestArray;
 

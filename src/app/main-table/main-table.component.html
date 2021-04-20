@@ -1,5 +1,9 @@
-<div style="display:flex; justify-content: space-between; margin-bottom: 15px; padding: 10px 10px 0 10px;">
+<div style="display:flex; justify-content: space-between; margin: 15px 0;">
   <div>
+    <button class="btn-edit" [matMenuTriggerFor]="menu">
+      <fa-icon [icon]="faPlus"></fa-icon>
+      Добавить показание
+    </button>
   </div>
   <mat-slide-toggle [checked]="roundValues" (change)="changeValues()">Округлить значения</mat-slide-toggle>
 </div>

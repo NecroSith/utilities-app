@@ -1,0 +1,19 @@
+@import "_variables";
+
+%std-btn {
+  background-color: $standard-blue;
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+  padding: 10px 20px;
+  font-size: 14px;
+  &:hover {
+    background-color: lighten($standard-blue, 10%);
+  }
+  &:active {
+    background-color: darken($standard-blue, 10%);
+  }
+}

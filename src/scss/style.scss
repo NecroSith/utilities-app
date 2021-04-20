@@ -1,9 +1,14 @@
 @import "_variables";
 @import "_mixins";
+@import "_extends";
 
 html, body { height: 100%; box-sizing: border-box}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; box-sizing: border-box }
 
 .mat-tab-header {
   margin-bottom: 25px;
+}
+
+.btn-edit {
+  @extend %std-btn;
 }
