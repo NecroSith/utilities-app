@@ -16,4 +16,7 @@
   &:active {
     background-color: darken($standard-blue, 10%);
   }
+  & fa-icon {
+    margin-right: 10px;
+  }
 }

@@ -4,6 +4,8 @@ import {IValues} from "../main/main.component";
 import { MatPaginator } from "@angular/material/paginator";
 import {MatTableDataSource} from '@angular/material/table';
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {MatDialog} from "@angular/material/dialog";
+import {AddParamModalComponent} from "../add-param-modal/add-param-modal.component";
 
 
 interface IDataSource {
@@ -36,6 +38,7 @@ export class MainTableComponent implements OnInit {
     {id: 4, date: '01.01.2021', gas: 20.70, electricity: 74.93, hotWater: 51.90, coldWater: 79.07},
     {id: 5, date: '02.01.2021', gas: 21.23, electricity: 76.60, hotWater: 57.40, coldWater: 85.85},
     {id: 6, date: '03.01.2021', gas: 21.64, electricity: 78.06, hotWater: 62.60, coldWater: 91.08},
+    {id: 6, date: '04.01.2021', gas: 22.28, electricity: 79.63, hotWater: 68.54, coldWater: 96.52},
     {id: 3, date: '12.01.2020', gas: 19.87, electricity: 73.35, hotWater: 47.23, coldWater: 72.74},
     {id: 4, date: '01.01.2021', gas: 20.70, electricity: 74.93, hotWater: 51.90, coldWater: 79.07},
     {id: 5, date: '02.01.2021', gas: 21.23, electricity: 76.60, hotWater: 57.40, coldWater: 85.85},
@@ -61,7 +64,7 @@ export class MainTableComponent implements OnInit {
 
   private defaultTestArray;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
 
   }
 
@@ -85,6 +88,16 @@ export class MainTableComponent implements OnInit {
     this.defaultTestArray = this.initialData;
   }
 
+  public openAddParamModal() {
+    const dialogRef = this.dialog.open(AddParamModalComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   public changeValues() {
     this.roundValues = !this.roundValues;
     if (this.roundValues) {
@@ -106,7 +119,6 @@ export class MainTableComponent implements OnInit {
 
       this.reinitDataSource(this.initialData);
     }
-
   }
 
   public getAverage(field) {

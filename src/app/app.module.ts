@@ -15,13 +15,20 @@ import { MatMenuModule } from '@angular/material/menu'
 import { FontAwesomeModule, FaIconLibrary } from "@fortawesome/angular-fontawesome";
 
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { AddParamModalComponent } from './add-param-modal/add-param-modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     MainTableComponent,
-    MainSidebarComponent
+    MainSidebarComponent,
+    AddParamModalComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +40,14 @@ import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
     FontAwesomeModule,
     MatMenuModule,
     MatSidenavModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+  ],
+  entryComponents: [
+    AddParamModalComponent
   ],
   providers: [FaIconLibrary],
   bootstrap: [AppComponent]

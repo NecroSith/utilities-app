@@ -1,14 +1,15 @@
 @import "_variables";
 @import "_mixins";
 @import "_extends";
+@import "_fonts";
 
 html, body { height: 100%; box-sizing: border-box}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; box-sizing: border-box }
+body { margin: 0; font-family: Roboto, "HelveticaNeueCyr", sans-serif; box-sizing: border-box }
 
 .mat-tab-header {
   margin-bottom: 25px;
 }
 
-.btn-edit {
+.btn-std {
   @extend %std-btn;
 }
