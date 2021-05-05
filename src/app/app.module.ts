@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from "@angular/material/table";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { MainTableComponent } from './main-table/main-table.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
 import { MatPaginatorModule } from "@angular/material/paginator";
@@ -21,6 +21,21 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MMMM YYYY',
+  },
+  display: {
+    dateInput: 'MMMM YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -45,11 +60,21 @@ import {MatIconModule} from "@angular/material/icon";
     MatButtonModule,
     MatInputModule,
     MatIconModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
   ],
   entryComponents: [
     AddParamModalComponent
   ],
-  providers: [FaIconLibrary],
+  providers: [
+    FaIconLibrary,
+    {provide: MAT_DATE_LOCALE, useValue: 'ru_RU'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},],
   bootstrap: [AppComponent]
 })
 export class AppModule {
